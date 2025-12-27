@@ -34,13 +34,25 @@ class MuJoCoPendulumEnv(gym.Env):
             dtype=np.float32,
         )
 
+        # Start at a random position
+        self.data.qpos[0] = np.random.uniform(-np.pi, np.pi)
+        self.data.qvel[0] = np.random.uniform(-1.0, 1.0)
+        mujoco.mj_forward(self.model, self.data)
+
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
-
-        # Start near upright position (θ=0 is inverted/upright)
-        self.data.qpos[0] = np.random.uniform(-0.1, 0.1)
-        self.data.qvel[0] = np.random.uniform(-0.1, 0.1)
-
+    
+        # Check if specific starting angle is requested
+        if options and "start_angle" in options:
+            self.data.qpos[0] = options["start_angle"]
+            self.data.qvel[0] = options.get("start_velocity", 0.0)
+        else:
+            # Use seed for deterministic or random starting position
+            if seed is not None:
+                np.random.seed(seed)
+            self.data.qpos[0] = np.random.uniform(-np.pi, np.pi)
+            self.data.qvel[0] = np.random.uniform(-1.0, 1.0)
+    
         mujoco.mj_forward(self.model, self.data)
         return self._get_obs(), {}
 
