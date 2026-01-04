@@ -1,4 +1,4 @@
-from pendulum_env import MuJoCoPendulumEnv
+from pendulum_env_simple import MuJoCoPendulumEnv
 import time
 import numpy as np
 

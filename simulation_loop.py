@@ -4,11 +4,11 @@ import numpy as np
 import time
 
 # Load model
-model = mujoco.MjModel.from_xml_path("/Users/arushpimpalkar/work/timepass/RL_Arush/pendulum.xml")
+model = mujoco.MjModel.from_xml_path("/Users/arushpimpalkar/work/timepass/RL_Arush/pendulum_simple.xml")
 data = mujoco.MjData(model)
 
-# Optional: initial condition (slight offset)
-data.qpos[0] = 0.2   # radians
+# Optional: initial condition (slight offset from hanging equilibrium)
+data.qpos[0] = 0.2   # radians (small deviation from hanging down)
 
 # Launch interactive viewer
 with mujoco.viewer.launch_passive(model, data) as viewer:

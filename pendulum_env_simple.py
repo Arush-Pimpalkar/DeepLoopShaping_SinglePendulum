@@ -8,7 +8,7 @@ from gymnasium import spaces
 class MuJoCoPendulumEnv(gym.Env):
     metadata = {"render_modes": ["human"], "render_fps": 50}
 
-    def __init__(self, xml_path="pendulum.xml", render_mode=None):
+    def __init__(self, xml_path="pendulum_simple.xml", render_mode=None):
         super().__init__()
 
         self.model = mujoco.MjModel.from_xml_path(xml_path)
@@ -66,19 +66,20 @@ class MuJoCoPendulumEnv(gym.Env):
         theta = self.data.qpos[0]
         theta_dot = self.data.qvel[0]
 
-        # Normalize theta to [-π, π] where 0 is upright
+        # Normalize theta to [-π, π] where 0 is hanging down (stable equilibrium)
         theta_normalized = ((theta + np.pi) % (2 * np.pi)) - np.pi
 
-        # Reward: maximize for staying upright (theta_normalized ≈ 0)
+        # Reward: maximize for staying at hanging position (theta_normalized ≈ 0)
+        # Higher reward for small angles (near hanging), penalty for large angles and velocity
         reward = (
-            1.0
-            - theta_normalized**2
+            np.cos(theta_normalized)  # Maximum reward (1.0) when hanging (theta=0), minimum (-1.0) when inverted
             - 0.1 * theta_dot**2
             - 0.001 * action[0]**2
         )
 
-        # Terminate if pendulum falls past horizontal (|θ| > π/2)
-        terminated = abs(theta_normalized) > np.pi / 2
+        # For simple pendulum, don't terminate based on angle - let it swing freely
+        # Only terminate if velocity becomes too extreme
+        terminated = abs(theta_dot) > 15.0
         truncated = False
         info = {}
 
@@ -101,13 +102,13 @@ class MuJoCoPendulumEnv(gym.Env):
         theta_dot = self.data.qvel[0]
         torque = action[0]
 
-        # Upright error (wrapped)
-        theta_err = ((theta - np.pi + np.pi) % (2*np.pi)) - np.pi
+        # For simple pendulum, hanging down (theta=0) is the target
+        theta_err = ((theta + np.pi) % (2*np.pi)) - np.pi
 
-        return -(
-            theta_err**2
-            + 0.1 * theta_dot**2
-            + 0.001 * torque**2
+        return (
+            np.cos(theta_err)  # Maximum reward when hanging (theta=0)
+            - 0.1 * theta_dot**2
+            - 0.001 * torque**2
         )
 
     def render(self):

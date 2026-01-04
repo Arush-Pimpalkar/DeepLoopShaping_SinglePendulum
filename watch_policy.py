@@ -1,6 +1,6 @@
 import time
 from stable_baselines3 import SAC
-from pendulum_env import MuJoCoPendulumEnv
+from pendulum_env_simple import MuJoCoPendulumEnv
 import gymnasium as gym
 import numpy as np
 

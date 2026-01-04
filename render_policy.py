@@ -1,7 +1,7 @@
 import time
 import numpy as np
 from stable_baselines3 import SAC
-from pendulum_env import MuJoCoPendulumEnv
+from pendulum_env_simple import MuJoCoPendulumEnv
 
 # Set initial angle (in radians)
 INITIAL_ANGLE = np.pi / 2
