@@ -4,7 +4,8 @@
  - Added gaussian noise at action using ActionGaussianNoiseWrapper  
  - Tried various methods to attenuate noise at f > 10 hz
  - Compared with a simple SAC trained without noise based rewards 
-
+ - notebook: [simple_gaussian.ipynb](https://github.com/Arush-Pimpalkar/RL_Arush/blob/main/simple_gaussian.ipynb
+)
 ### Simple SAC (Baseline):
  - Standard Soft Actor-Critic algorithm without any additional penalty terms
  - Trains directly on a noisy environment with Gaussian action noise (SNR = 10)
