@@ -3,3 +3,4 @@ __pycache__/
 *.log
 models/
 .DS_Store
+.env
