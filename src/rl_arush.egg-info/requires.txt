@@ -1,0 +1,14 @@
+gymnasium
+numpy
+mujoco
+h5py
+pandas
+scipy
+matplotlib
+tqdm
+pyyaml
+
+[dev]
+pytest
+jupyter
+ipykernel
