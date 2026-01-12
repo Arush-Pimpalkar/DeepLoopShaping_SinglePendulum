@@ -1,0 +1,38 @@
+Metadata-Version: 2.4
+Name: rl_arush
+Version: 0.1.0
+Summary: Deep Loop Shaping for Pendulum Control
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: gymnasium
+Requires-Dist: numpy
+Requires-Dist: mujoco
+Requires-Dist: h5py
+Requires-Dist: pandas
+Requires-Dist: scipy
+Requires-Dist: matplotlib
+Requires-Dist: tqdm
+Requires-Dist: pyyaml
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: jupyter; extra == "dev"
+Requires-Dist: ipykernel; extra == "dev"
+
+# Deep Loop Shaping for Pendulum Control
+
+Replicating results from **"Improving Cosmological Reach of a Gravitational Wave Observatory using Deep Loop Shaping"** applied to a single pendulum system.
+
+## Overview
+
+This project uses deep reinforcement learning to control a pendulum, following methods from gravitational wave detector research. The pendulum is simulated with MuJoCo.
+
+## Summaries
+
+[1.README](https://github.com/Arush-Pimpalkar/RL_Arush/blob/main/1.README.md)
+
+[2.README](https://github.com/Arush-Pimpalkar/RL_Arush/blob/main/2.README.md)
+
+## Reference
+
+Based on the methodology from:
+> [*Improving Cosmological Reach of a Gravitational Wave Observatory using Deep Loop Shaping*](https://www.science.org/doi/10.1126/science.adw1291)
